@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Grade;
 
-
-
-
 use App\Models\Grade;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Classroom;
 
 class GradeController extends Controller
 {
@@ -17,8 +15,8 @@ class GradeController extends Controller
      */
     public function index()
     {
-        $grades=Grade::all();
-        return view('pages.grades.grades',compact('grades'));
+        $grades = Grade::all();
+        return view('pages.grades.grades', compact('grades'));
     }
 
     /**
@@ -34,11 +32,26 @@ class GradeController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $grade=new Grade();
-        $grade->name =['en'=>$request->Name_en, 'ar'=>$request->Name];
-        $grade->notes=$request->Notes ;
+        if (
+            Grade::where('Name->ar', $request->Name)
+                ->orWhere('Name->en', $request->Name_en)
+                ->exists()
+        ) {
+            // return redirect()->back()->withErrors(trans('GradesTranslation.exists'));
+            toastr()->error(trans('GradesTranslation.exists'));
+            return redirect()->route('grades.index');
+        }
 
-        $grade->save();
+        Grade::create([
+            'name' => ['en' => $request->Name_en, 'ar' => $request->Name],
+            'notes' => $request->Notes,
+        ]);
+
+        // $grade=new Grade();
+        // $grade->name =['en'=>$request->Name_en, 'ar'=>$request->Name];
+        // $grade->notes=$request->Notes ;
+
+        // $grade->save();
 
         toastr()->success(trans('messges.success'));
         return redirect()->route('grades.index');
@@ -63,14 +76,10 @@ class GradeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreRequest $request, string $id)
     {
-        $grades=Grade::find($id);
-        $grades->update([
-
-            $grades->name =['en'=>$request->Name_en, 'ar'=>$request->Name],
-            $grades->notes=$request->Notes ,
-        ]);
+        $grades = Grade::find($id);
+        $grades->update([($grades->name = ['en' => $request->Name_en, 'ar' => $request->Name]), ($grades->notes = $request->Notes)]);
 
         toastr()->success(trans('messges.Update'));
         return redirect()->route('grades.index');
@@ -81,9 +90,16 @@ class GradeController extends Controller
      */
     public function destroy(string $id)
     {
-        $grade=Grade::destroy($id);
+        $class = Classroom::where('grade_id', $id)->pluck('grade_id');
 
-        toastr()->success(trans('messges.Delete'));
-        return redirect()->route('grades.index');
+        if ($class->count() == 0) {
+            Grade::destroy($id);
+            toastr()->success(trans('messges.Delete'));
+            return redirect()->route('grades.index');
+        } else {
+            toastr()->error(trans('messges.Delete_grades'));
+            return redirect()->route('grades.index');
+        }
     }
+  
 }

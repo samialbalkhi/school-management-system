@@ -15,5 +15,6 @@ return [
     'Save'=>'Save',
     'edit_Grade'=>'Edit Grade',
     'delete_Grade'=>'Delete Grade',
-    'warning_delete'=>'Are you sure to delete the stage'
+    'warning_delete'=>'Are you sure to delete the stage',
+    'exists'=>'This field already exists',
 ];

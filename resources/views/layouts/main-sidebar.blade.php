@@ -39,20 +39,27 @@
                     <li>
                         <a href="javascript:void(0);" data-toggle="collapse" data-target="#calendar-menu">
                             <div class="pull-left"><i class="ti-calendar"></i><span
-                                    class="right-nav-text">calendar</span></div>
+                                    class="right-nav-text">{{ trans('ClassTranslation.class') }}</span></div>
                             <div class="pull-right"><i class="ti-plus"></i></div>
                             <div class="clearfix"></div>
                         </a>
                         <ul id="calendar-menu" class="collapse" data-parent="#sidebarnav">
-                            <li> <a href="calendar.html">Events Calendar </a> </li>
-                            <li> <a href="calendar-list.html">List Calendar</a> </li>
+                            <li> <a href="{{route('classes.index')}}">{{ trans('ClassTranslation.class_list') }}</a> </li>
                         </ul>
                     </li>
                     <!-- menu item todo-->
-                    <li>
-                        <a href="todo-list.html"><i class="ti-menu-alt"></i><span class="right-nav-text">Todo
-                                list</span> </a>
-                    </li>
+                        <li>
+                            <a href="javascript:void(0);" data-toggle="collapse" data-target="#sections-menu">
+                                <div class="pull-left"><i class="fas fa-chalkboard"></i></i><span
+                                        class="right-nav-text">{{trans('SectionTranslation.sections')}}</span></div>
+                                <div class="pull-right"><i class="ti-plus"></i></div>
+                                <div class="clearfix"></div>
+                            </a>
+                            <ul id="sections-menu" class="collapse" data-parent="#sidebarnav">
+                                <li><a href="{{route('Sections.index')}}">{{trans('SectionTranslation.section_list')}}</a></li>
+                            </ul>
+                        </li>
+        
                     <!-- menu item chat-->
                     <li>
                         <a href="chat-page.html"><i class="ti-comments"></i><span class="right-nav-text">Chat

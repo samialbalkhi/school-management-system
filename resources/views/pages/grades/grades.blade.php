@@ -24,7 +24,15 @@
 @endsection
 @section('content')
 <!-- row -->
-
+@if ($errors->any())
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
 
 <div class="row">
     <div class="col-xl-12 mb-30">
@@ -57,7 +65,7 @@
 
                                         <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
                                         data-target="#edit{{ $items->id }}"
-                                        title="{{ trans('Grades_trans.Edit') }}"><i class="fa fa-edit"></i></button>
+                                        title="{{ trans('GradesTranslation.Update') }}"><i class="fa fa-edit"></i></button>
                                                 
                                         <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                                             data-target="#delete{{ $items->id }}"
@@ -96,8 +104,7 @@
                                                             class="form-control"
                                                             value="{{$items->getTranslation('name','ar')}}"
                                                             required>
-                                                        <input id="id" type="hidden" name="id" class="form-control"
-                                                            value="">
+                                                       
                                                     </div>
                                                     <div class="col">
                                                         <label for="Name_en"

@@ -1,10 +1,13 @@
 <?php
 
 use App\Models\Grade;
+use App\Models\Classroom;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Grade\GradeController;
+use App\Http\Controllers\ClassRoom\ClassController;
+use App\Http\Controllers\Section\SectionController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
@@ -40,6 +43,10 @@ Route::group(
 
         Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
         Route::resource('/grades',GradeController::class);
+        Route::resource('/classes', ClassController::class);
+        Route::post('/delete_all',[ClassController::class,'delete_all'])->name('delete_all');
+        Route::post('/filter_class',[ClassController::class,'filter_class'])->name('filter_class');
+        Route::resource('/Sections',SectionController::class);
     });
 
 
