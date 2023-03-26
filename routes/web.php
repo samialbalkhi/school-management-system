@@ -47,7 +47,12 @@ Route::group(
         Route::post('/delete_all',[ClassController::class,'delete_all'])->name('delete_all');
         Route::post('/filter_class',[ClassController::class,'filter_class'])->name('filter_class');
         Route::resource('/Sections',SectionController::class);
+        Route::get('/calses/{id}',[SectionController::class, 'clasessection']);
     });
 
 
 
+Route::get('/test',function(){
+
+    return view('test');
+});

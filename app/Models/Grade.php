@@ -15,4 +15,9 @@ class Grade extends Model
         
     protected $fillable=['name','notes','created_at','updated_at'];
     protected $hidden=['created_at','updated_at'];
+
+    public function sections()
+    {
+        return $this->hasMany(Section::class,'grade_id');
+    }
 }

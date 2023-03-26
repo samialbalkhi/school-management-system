@@ -32,6 +32,7 @@ class GradeController extends Controller
      */
     public function store(StoreRequest $request)
     {
+    
         if (
             Grade::where('Name->ar', $request->Name)
                 ->orWhere('Name->en', $request->Name_en)
@@ -41,6 +42,7 @@ class GradeController extends Controller
             toastr()->error(trans('GradesTranslation.exists'));
             return redirect()->route('grades.index');
         }
+    
 
         Grade::create([
             'name' => ['en' => $request->Name_en, 'ar' => $request->Name],

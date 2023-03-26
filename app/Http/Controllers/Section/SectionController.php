@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Section;
 
-use App\Http\Controllers\Controller;
 use App\Models\Grade;
+use App\Models\Section;
+use App\Models\Classroom;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Section\SectionRequest;
 
 class SectionController extends Controller
 {
@@ -13,8 +16,9 @@ class SectionController extends Controller
      */
     public function index()
     {
-        $grades=Grade::all();
-        return view('pages.Sections.section',compact('grades'));
+        $gards = Grade::with('sections')->get();
+        $list_grades = Grade::all();
+        return view('pages.Sections.section', compact('list_grades', 'gards'));
     }
 
     /**
@@ -28,9 +32,17 @@ class SectionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SectionRequest $request)
     {
-        //
+        Section::create([
+            'name' => ['ar' => $request->Name_Section_Ar, 'en' => $request->Name_Section_En],
+            'status' => 1,
+            'grade_id' => $request->Grade_id,
+            'classroom_id' => $request->Class_id,
+        ]);
+
+        toastr()->success(trans('messges.success'));
+        return redirect()->route('Sections.index');
     }
 
     /**
@@ -52,9 +64,21 @@ class SectionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(SectionRequest $request, string $id)
     {
-        //
+        $section=Section::find($id);
+
+        $section->update([
+
+            'name' => ['ar' => $request->Name_Section_Ar, 'en' => $request->Name_Section_En],
+            'grade_id'=>$request->Grade_id,
+            'classroom_id'=>$request->Class_id,
+            'status'=>$request->status == 1 ?  : 2,
+           
+        ]);
+
+        toastr()->success(trans('messges.Update'));
+        return redirect()->route('Sections.index');
     }
 
     /**
@@ -62,6 +86,14 @@ class SectionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Section::destroy($id);
+
+        toastr()->success(trans('messges.Delete'));
+        return redirect()->route('Sections.index');
+    }
+    public function clasessection($id)
+    {
+        // return $request->id;
+        return Classroom::where('grade_id', $id)->pluck('name', 'id');
     }
 }

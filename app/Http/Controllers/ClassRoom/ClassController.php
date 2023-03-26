@@ -35,7 +35,6 @@ class ClassController extends Controller
     public function store(ClassRequest $request)
     {
         for ($i = 0; $i < count($request->List_Classes); $i++) {
-            // dd($request->List_Classes[$i]['Grade_id']);
             Classroom::create([
                 'name' => ['en' => $request->List_Classes[$i]['Name_class_en'], 'ar' => $request->List_Classes[$i]['Name']],
                 'grade_id' => $request->List_Classes[$i]['grade_id'],

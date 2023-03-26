@@ -3,7 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Type_blood;
 use Illuminate\Database\Seeder;
+use Database\Seeders\ReligionsSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,5 +21,8 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        // $this->call(BloodSeeder::class);
+        // $this->call(NotionalitioSedder::class);
+        // $this->call(ReligionsSeeder::class);
     }
 }

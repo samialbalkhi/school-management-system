@@ -26,17 +26,17 @@ class StoreRequest extends FormRequest
         if($this->routeIs('grades.store')){
 
             return [
-                'Name'=>['required','alpha','max:20','min:3','unique:grades,name'],
-                'Name_en'=>['required','alpha','max:20','min:3','unique:grades,name'],
-                'Notes'=>['alpha','max:20','min:3','nullable'],
+                'Name'=>['required','max:20','min:3','unique:grades,name'],
+                'Name_en'=>['required','max:20','min:3','unique:grades,name'],
+                'Notes'=>['max:20','min:3','nullable'],
     
             ];
         }else{
 
             return [
-                'Name'=>['required','alpha','max:20','min:3','unique:grades,name',Rule::unique('grades','name')->ignore($this->route()->id)],
-                'Name_en'=>['required','alpha','max:20','min:3','unique:grades,name',Rule::unique('grades','name')->ignore($this->route()->id)],
-                'Notes'=>['alpha','max:20','min:3','nullable'],
+                'Name'=>['required','max:20','min:3','unique:grades,name',Rule::unique('grades','name')->ignore($this->route()->id)],
+                'Name_en'=>['required','max:20','min:3','unique:grades,name',Rule::unique('grades','name')->ignore($this->route()->id)],
+                'Notes'=>['max:20','min:3','nullable'],
     
             ];
         }

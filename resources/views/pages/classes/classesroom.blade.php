@@ -123,6 +123,9 @@
                                                                 class="form-control"
                                                                 value="{{ $itemss->getTranslation('name', 'ar') }}">
 
+                                                                @error('Name')
+                                                                <small class="form-text text-danger">{{ $message }}</small>
+                                                            @enderror
                                                         </div>
                                                         <div class="col">
                                                             <label for="Name_en"
@@ -131,6 +134,11 @@
                                                             <input type="text" class="form-control"
                                                                 value="{{ $itemss->getTranslation('name', 'en') }}"
                                                                 name="Name_en" required>
+
+                                                                
+                                                                @error('Name_en')
+                                                                <small class="form-text text-danger">{{ $message }}</small>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                     <div class="col">
@@ -150,6 +158,9 @@
                                                                     </option>
                                                                 @endforeach
                                                             </select>
+                                                            @error('grade_id')
+                                                            <small class="form-text text-danger">{{ $message }}</small>
+                                                        @enderror
                                                         </div>
 
                                                     </div>
@@ -240,6 +251,10 @@
                                                     class="mr-sm-2">{{ trans('ClassTranslation.Name_class') }}
                                                     :</label>
                                                 <input class="form-control" type="text" name="Name" />
+
+                                                @error('Name')
+                                                <small class="form-text text-danger">{{ $message }}</small>
+                                            @enderror
                                             </div>
 
 
@@ -248,6 +263,9 @@
                                                     class="mr-sm-2">{{ trans('ClassTranslation.Name_class_en') }}
                                                     :</label>
                                                 <input class="form-control" type="text" name="Name_class_en" />
+                                                @error('Name_class_en')
+                                                <small class="form-text text-danger">{{ $message }}</small>
+                                            @enderror
                                             </div>
 
 
@@ -262,7 +280,11 @@
                                                             <option value="{{ $items->id }}">{{ $items->name }}
                                                             </option>
                                                         @endforeach
+
                                                     </select>
+                                                    @error('grade_id')
+                                                    <small class="form-text text-danger">{{ $message }}</small>
+                                                @enderror
                                                 </div>
 
                                             </div>
@@ -274,6 +296,8 @@
                                                 <input class="btn btn-danger btn-block" data-repeater-delete
                                                     type="button"
                                                     value="{{ trans('ClassTranslation.delete_row') }}" />
+
+                                                    
                                             </div>
                                         </div>
                                     </div>

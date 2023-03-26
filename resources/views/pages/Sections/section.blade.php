@@ -39,7 +39,7 @@
                 <div class="card-body">
                     <div class="accordion gray plus-icon round">
 
-                        @foreach ($grades as $Grade)
+                        @foreach ($list_grades as $Grade)
                             <div class="acd-group">
                                 <a href="#" class="acd-heading">{{ $Grade->name }}</a>
                                 <div class="acd-des">
@@ -59,202 +59,234 @@
                                                                     <th>#</th>
                                                                     <th>{{ trans('SectionTranslation.Name_Section') }}
                                                                     </th>
-                                                                    <th>{{ trans('SectionTranslation.Name_Class') }}</th>
+                                                                    <th>{{ trans('SectionTranslation.Name_Class') }}
+                                                                    </th>
                                                                     <th>{{ trans('SectionTranslation.Status') }}</th>
                                                                     <th>{{ trans('SectionTranslation.Processes') }}</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                               
 
-                                                                <tr>
+                                                                @foreach ($Grade->sections as $list)
+                                                                    <tr>
 
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td>
-                                                                    </td>
-                                                                    <td>
-                                                                        {{-- @if ($list_Sections->Status === 1)
+                                                                        <td>{{ $list->id }}</td>
+                                                                        <td>{{ $list->name }}</td>
+                                                                        <td>{{ $list->classrooms->name }}
+                                                                        </td>
+                                                                        <td>
+                                                                            @if ($list->status === 1)
                                                                                 <label
-                                                                                    class="badge badge-success">{{ trans('Sections_trans.Status_Section_AC') }}</label>
+                                                                                    class="badge badge-success">{{ trans('SectionTranslation.Status_Section_AC') }}</label>
                                                                             @else
                                                                                 <label
-                                                                                    class="badge badge-danger">{{ trans('Sections_trans.Status_Section_No') }}</label>
-                                                                            @endif --}}
+                                                                                    class="badge badge-danger">{{ trans('SectionTranslation.Status_Section_No') }}</label>
+                                                                            @endif
 
-                                                                    </td>
-                                                                    <td>
+                                                                        </td>
+                                                                        <td>
 
-                                                                        <a href="#"
-                                                                            class="btn btn-outline-info btn-sm"
-                                                                            data-toggle="modal"
-                                                                            data-target="#edit">{{ trans('Sections_trans.Edit') }}</a>
-                                                                        <a href="#"
-                                                                            class="btn btn-outline-danger btn-sm"
-                                                                            data-toggle="modal"
-                                                                            data-target="#delete">{{ trans('Sections_trans.Delete') }}</a>
-                                                                    </td>
-                                                                </tr>
+                                                                            <a href="#"
+                                                                                class="btn btn-outline-info btn-sm"
+                                                                                data-toggle="modal"
+                                                                                data-target="#edit{{ $list->id }}">{{ trans('GradesTranslation.Update') }}</a>
+                                                                            <a href="#"
+                                                                                class="btn btn-outline-danger btn-sm"
+                                                                                data-toggle="modal"
+                                                                                data-target="#delete{{ $list->id }}">{{ trans('GradesTranslation.delete') }}</a>
+                                                                        </td>
+
+                                                                    </tr>
 
 
-                                                                <!--تعديل قسم جديد -->
-                                                                <div class="modal fade" id="edit" tabindex="-1"
-                                                                    role="dialog" aria-labelledby="exampleModalLabel"
-                                                                    aria-hidden="true">
-                                                                    <div class="modal-dialog" role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h5 class="modal-title"
-                                                                                    style="font-family: 'Cairo', sans-serif;"
-                                                                                    id="exampleModalLabel">
-                                                                                    {{ trans('Sections_trans.edit_Section') }}
-                                                                                </h5>
-                                                                                <button type="button" class="close"
-                                                                                    data-dismiss="modal"
-                                                                                    aria-label="Close">
-                                                                                    <span
-                                                                                        aria-hidden="true">&times;</span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="modal-body">
+                                                                    <!--تعديل قسم جديد -->
+                                                                    <div class="modal fade"
+                                                                        id="edit{{ $list->id }}" tabindex="-1"
+                                                                        role="dialog"
+                                                                        aria-labelledby="exampleModalLabel"
+                                                                        aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title"
+                                                                                        style="font-family: 'Cairo', sans-serif;"
+                                                                                        id="exampleModalLabel">
+                                                                                        {{ trans('SectionTranslation.edit_Section') }}
+                                                                                    </h5>
+                                                                                    <button type="button"
+                                                                                        class="close"
+                                                                                        data-dismiss="modal"
+                                                                                        aria-label="Close">
+                                                                                        <span
+                                                                                            aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
 
-                                                                                <form action="" method="POST">
-                                                                                    {{ method_field('patch') }}
-                                                                                    {{ csrf_field() }}
-                                                                                    <div class="row">
-                                                                                        <div class="col">
-                                                                                            <input type="text"
-                                                                                                name="Name_Section_Ar"
-                                                                                                class="form-control"
-                                                                                                value="">
+                                                                                    <form
+                                                                                        action="{{ route('Sections.update', $list->id) }}"
+                                                                                        method="POST">
+                                                                                        {{ method_field('patch') }}
+                                                                                        @csrf
+                                                                                        <div class="row">
+                                                                                            <div class="col">
+                                                                                                <input type="text"
+                                                                                                    name="Name_Section_Ar"
+                                                                                                    class="form-control"
+                                                                                                    value="{{ $list->getTranslation('name', 'ar') }}">
+
+                                                                                                @error('Name_Section_Ar')
+                                                                                                    <small
+                                                                                                        class="form-text text-danger">{{ $message }}</small>
+                                                                                                @enderror
+                                                                                            </div>
+
+                                                                                            <div class="col">
+                                                                                                <input type="text"
+                                                                                                    name="Name_Section_En"
+                                                                                                    class="form-control"
+                                                                                                    value="{{ $list->getTranslation('name', 'en') }}">
+
+                                                                                                @error('Name_Section_En')
+                                                                                                    <small
+                                                                                                        class="form-text text-danger">{{ $message }}</small>
+                                                                                                @enderror
+                                                                                            </div>
+
                                                                                         </div>
+                                                                                        <br>
+
 
                                                                                         <div class="col">
-                                                                                            <input type="text"
-                                                                                                name="Name_Section_En"
-                                                                                                class="form-control"
-                                                                                                value="">
-                                                                                            <input id="id"
-                                                                                                type="hidden"
-                                                                                                name="id"
-                                                                                                class="form-control"
-                                                                                                value="">
+                                                                                            <label for="inputName"
+                                                                                                class="control-label">{{ trans('SectionTranslation.Name_Grade') }}</label>
+                                                                                            <select name="Grade_id"
+                                                                                                class="custom-select"
+                                                                                                onclick="console.log($(this).val())">
+                                                                                                <!--placeholder-->
+                                                                                                <option
+                                                                                                    value="{{ $Grade->id }}">
+                                                                                                    {{ $Grade->name }}
+                                                                                                </option>
+
+                                                                                                <option
+                                                                                                    value="{{ $Grade->id }}">
+                                                                                                    {{ $Grade->name }}
+                                                                                                </option>
+
+                                                                                            </select>
+
+                                                                                            @error('Grade_id')
+                                                                                                <small
+                                                                                                    class="form-text text-danger">{{ $message }}</small>
+                                                                                            @enderror
                                                                                         </div>
+                                                                                        <br>
 
-                                                                                    </div>
-                                                                                    <br>
+                                                                                        <div class="col">
+                                                                                            <label for="inputName"
+                                                                                                class="control-label">{{ trans('SectionTranslation.Select_class') }}</label>
+                                                                                            <select name="Class_id"
+                                                                                                class="custom-select">
 
+                                                                                                <option
+                                                                                                    value="{{ $list->classrooms->id }}">
+                                                                                                    {{ $list->classrooms->name }}
+                                                                                                </option>
 
-                                                                                    <div class="col">
-                                                                                        <label for="inputName"
-                                                                                            class="control-label">{{ trans('Sections_trans.Name_Grade') }}</label>
-                                                                                        <select name="Grade_id"
-                                                                                            class="custom-select"
-                                                                                            onclick="console.log($(this).val())">
-                                                                                            <!--placeholder-->
-                                                                                            <option value="">
+                                                                                            </select>
+                                                                                            @error('Class_id')
+                                                                                                <small
+                                                                                                    class="form-text text-danger">{{ $message }}</small>
+                                                                                            @enderror
+                                                                                        </div>
+                                                                                        <br>
 
-                                                                                            </option>
+                                                                                        <div class="col">
+                                                                                            <div class="form-check">
 
-                                                                                            <option value="">
-
-                                                                                            </option>
-
-                                                                                        </select>
-                                                                                    </div>
-                                                                                    <br>
-
-                                                                                    <div class="col">
-                                                                                        <label for="inputName"
-                                                                                            class="control-label">{{ trans('Sections_trans.Name_Class') }}</label>
-                                                                                        <select name="Class_id"
-                                                                                            class="custom-select">
-                                                                                            <option value="">
-
-                                                                                            </option>
-                                                                                        </select>
-                                                                                    </div>
-                                                                                    <br>
-
-                                                                                    <div class="col">
-                                                                                        <div class="form-check">
-
-                                                                                            {{-- @if ($list_Sections->Status === 1)
+                                                                                                @if ($list->status === 1)
                                                                                                     <input
                                                                                                         type="checkbox"
                                                                                                         checked
                                                                                                         class="form-check-input"
-                                                                                                        name="Status"
+                                                                                                        name="status"
                                                                                                         id="exampleCheck1">
                                                                                                 @else
                                                                                                     <input
                                                                                                         type="checkbox"
                                                                                                         class="form-check-input"
-                                                                                                        name="Status"
+                                                                                                        name="status"
                                                                                                         id="exampleCheck1">
-                                                                                                @endif --}}
-                                                                                            <label
-                                                                                                class="form-check-label"
-                                                                                                for="exampleCheck1">{{ trans('Sections_trans.Status') }}</label>
+                                                                                                @endif
+                                                                                                <label
+                                                                                                    class="form-check-label"
+                                                                                                    for="exampleCheck1">{{ trans('SectionTranslation.status') }}</label>
+                                                                                            </div>
                                                                                         </div>
-                                                                                    </div>
 
 
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button"
-                                                                                    class="btn btn-secondary"
-                                                                                    data-dismiss="modal">{{ trans('Sections_trans.Close') }}</button>
-                                                                                <button type="submit"
-                                                                                    class="btn btn-danger">{{ trans('Sections_trans.submit') }}</button>
-                                                                            </div>
-                                                                            </form>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-
-                                                                <!-- delete_modal_Grade -->
-                                                                <div class="modal fade" id="delete" tabindex="-1"
-                                                                    role="dialog" aria-labelledby="exampleModalLabel"
-                                                                    aria-hidden="true">
-                                                                    <div class="modal-dialog" role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h5 style="font-family: 'Cairo', sans-serif;"
-                                                                                    class="modal-title"
-                                                                                    id="exampleModalLabel">
-                                                                                    {{ trans('Sections_trans.delete_Section') }}
-                                                                                </h5>
-                                                                                <button type="button" class="close"
-                                                                                    data-dismiss="modal"
-                                                                                    aria-label="Close">
-                                                                                    <span
-                                                                                        aria-hidden="true">&times;</span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <form action="" method="post">
-                                                                                    {{ method_field('Delete') }}
-                                                                                    @csrf
-                                                                                    {{ trans('Sections_trans.Warning_Section') }}
-                                                                                    <input id="id"
-                                                                                        type="hidden" name="id"
-                                                                                        class="form-control"
-                                                                                        value="">
-                                                                                    <div class="modal-footer">
-                                                                                        <button type="button"
-                                                                                            class="btn btn-secondary"
-                                                                                            data-dismiss="modal">{{ trans('Sections_trans.Close') }}</button>
-                                                                                        <button type="submit"
-                                                                                            class="btn btn-danger">{{ trans('Sections_trans.submit') }}</button>
-                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button"
+                                                                                        class="btn btn-secondary"
+                                                                                        data-dismiss="modal">{{ trans('GradesTranslation.Close') }}</button>
+                                                                                    <button type="submit"
+                                                                                        class="btn btn-danger">{{ trans('GradesTranslation.Save') }}</button>
+                                                                                </div>
                                                                                 </form>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
 
+
+                                                                    <!-- delete_modal_Grade -->
+                                                                    <div class="modal fade"
+                                                                        id="delete{{ $list->id }}" tabindex="-1"
+                                                                        role="dialog"
+                                                                        aria-labelledby="exampleModalLabel"
+                                                                        aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 style="font-family: 'Cairo', sans-serif;"
+                                                                                        class="modal-title"
+                                                                                        id="exampleModalLabel">
+                                                                                        {{ trans('SectionTranslation.delete_Section') }}
+                                                                                    </h5>
+                                                                                    <button type="button"
+                                                                                        class="close"
+                                                                                        data-dismiss="modal"
+                                                                                        aria-label="Close">
+                                                                                        <span
+                                                                                            aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <form
+                                                                                        action="{{ route('Sections.destroy', $list->id) }}"
+                                                                                        method="post">
+                                                                                        {{ method_field('Delete') }}
+                                                                                        @csrf
+                                                                                        {{ trans('SectionTranslation.Warning_Section') }}
+                                                                                        <input id="id"
+                                                                                            type="hidden"
+                                                                                            name="id"
+                                                                                            class="form-control"
+                                                                                            value="">
+                                                                                        <div class="modal-footer">
+                                                                                            <button type="button"
+                                                                                                class="btn btn-secondary"
+                                                                                                data-dismiss="modal">{{ trans('GradesTranslation.Close') }}</button>
+                                                                                            <button type="submit"
+                                                                                                class="btn btn-danger">{{ trans('GradesTranslation.Save') }}</button>
+                                                                                        </div>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -263,11 +295,10 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
+                        @endforeach
                     </div>
                 </div>
-                @endforeach
 
                 <!--اضافة قسم جديد -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
@@ -277,7 +308,7 @@
                             <div class="modal-header">
                                 <h5 class="modal-title" style="font-family: 'Cairo', sans-serif;"
                                     id="exampleModalLabel">
-                                    {{ trans('Sections_trans.add_section') }}</h5>
+                                    {{ trans('SectionTranslation.add_section') }}</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -289,12 +320,20 @@
                                     <div class="row">
                                         <div class="col">
                                             <input type="text" name="Name_Section_Ar" class="form-control"
-                                                placeholder="{{ trans('Sections_trans.Section_name_ar') }}">
+                                                placeholder="{{ trans('SectionTranslation.Section_name_ar') }}">
+
+                                            @error('Name_Section_Ar')
+                                                <small class="form-text text-danger">{{ $message }}</small>
+                                            @enderror
                                         </div>
 
                                         <div class="col">
                                             <input type="text" name="Name_Section_En" class="form-control"
-                                                placeholder="{{ trans('Sections_trans.Section_name_en') }}">
+                                                placeholder="{{ trans('SectionTranslation.Section_name_en') }}">
+
+                                            @error('Name_Section_En')
+                                                <small class="form-text text-danger">{{ $message }}</small>
+                                            @enderror
                                         </div>
 
                                     </div>
@@ -303,36 +342,46 @@
 
                                     <div class="col">
                                         <label for="inputName"
-                                            class="control-label">{{ trans('Sections_trans.Name_Grade') }}</label>
+                                            class="control-label">{{ trans('SectionTranslation.Name_Grade') }}</label>
                                         <select name="Grade_id" class="custom-select"
                                             onchange="console.log($(this).val())">
                                             <!--placeholder-->
+
                                             <option value="" selected disabled>
-                                                {{ trans('Sections_trans.Select_Grade') }}
+                                                {{ trans('SectionTranslation.Select_Grade') }}
                                             </option>
-
-                                            <option value="">
-                                            </option>
-
+                                            @foreach ($list_grades as $Grade)
+                                                <option value="{{ $Grade->id }}">
+                                                    {{ $Grade->name }}
+                                                </option>
+                                            @endforeach
                                         </select>
+
+                                        @error('Grade_id')
+                                            <small class="form-text text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
                                     <br>
 
                                     <div class="col">
                                         <label for="inputName"
-                                            class="control-label">{{ trans('Sections_trans.Name_Class') }}</label>
+                                            class="control-label">{{ trans('SectionTranslation.Name_Class') }}</label>
                                         <select name="Class_id" class="custom-select">
 
                                         </select>
+
+                                        @error('Class_id')
+                                            <small class="form-text text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
 
 
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary"
-                                    data-dismiss="modal">{{ trans('Sections_trans.Close') }}</button>
+                                    data-dismiss="modal">{{ trans('GradesTranslation.Close') }}</button>
                                 <button type="submit"
-                                    class="btn btn-danger">{{ trans('Sections_trans.submit') }}</button>
+                                    class="btn btn-danger">{{ trans('GradesTranslation.Save') }}</button>
                             </div>
                             </form>
                         </div>
@@ -347,27 +396,28 @@
 @section('js')
     @toastr_js
     @toastr_render
-    {{-- <script>
-                $(document).ready(function () {
-                    $('select[name="Grade_id"]').on('change', function () {
-                        var Grade_id = $(this).val();
-                        if (Grade_id) {
-                            $.ajax({
-                                url: "{{ URL::to('classes') }}/" + Grade_id,
-                                type: "GET",
-                                dataType: "json",
-                                success: function (data) {
-                                    $('select[name="Class_id"]').empty();
-                                    $.each(data, function (key, value) {
-                                        $('select[name="Class_id"]').append('<option value="' + key + '">' + value + '</option>');
-                                    });
-                                },
+    <script>
+        $(document).ready(function() {
+            $('select[name="Grade_id"]').on('change', function() {
+                var Grade_id = $(this).val();
+                if (Grade_id) {
+                    $.ajax({
+                        url: "/calses/" + Grade_id,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+                            $('select[name="Class_id"]').empty();
+                            $.each(data, function(key, value) {
+                                $('select[name="Class_id"]').append('<option value="' +
+                                    key + '">' + value + '</option>');
                             });
-                        } else {
-                            console.log('AJAX load did not work');
-                        }
+                        },
                     });
-                });
-            </script> --}}
+                } else {
+                    console.log('AJAX load did not work');
+                }
+            });
+        });
+    </script>
 
 @endsection
