@@ -8,7 +8,6 @@ return [
     'Step1'=>'Father information',
     'Step2'=>'Mother information',
     'Step3'=>'Confirm information',
-
     'Email'=>'Email',
     'Password'=>'Password ',
     'Name_Father'=>'Name Father arbic',
@@ -24,4 +23,19 @@ return [
     'Address_Father'=>'Address',
     'Next'=>'Next',
     'Choose'=>'Choose',
+    'Name_Mother'=>'Name mother arbic',
+    'Name_Mother_en'=>'Name mother english',
+    'Job_Mother'=>'job mother arbic',
+    'Job_Mother_en'=>'job mother english',
+    'National_ID_Mother'=>'National ID',
+    'Passport_ID_Mother'=>'Passport ID',
+    'Phone_Mother'=>'Phone number',
+    'Nationality_Mother_id'=>'Nationality id',
+    'Blood_Type_Mother_id'=>'Blood type',
+    'Religion_Mother_id'=>'Religion',
+    'Address_Mother'=>'Address',
+    'Back'=>'Back',
+    'Finish'=>'Finish',
+    'msseg'=>'Are you sure to save your data?',
+
 ];

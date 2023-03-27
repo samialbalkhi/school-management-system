@@ -2,25 +2,14 @@
 @section('css')
 
 @section('title')
-    {{ trans('Add_Parent') }}
+    {{trans('main_trans.Add_Parent')}}
 @stop
 @endsection
 @section('page-header')
 <!-- breadcrumb -->
-<div class="page-title">
-    <div class="row">
-        <div class="col-sm-6">
-    {{ trans('Add_Parent') }}
-          
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right ">
-                <li class="breadcrumb-item"><a href="#" class="default-color">Home</a></li>
-                <li class="breadcrumb-item active">Page Title</li>
-            </ol>
-        </div>
-    </div>
-</div>
+@section('PageTitle')
+    {{trans('main_trans.Add_Parent')}}
+@stop
 <!-- breadcrumb -->
 @endsection
 @section('content')
@@ -37,5 +26,5 @@
 <!-- row closed -->
 @endsection
 @section('js')
-@livewireScripts
+    @livewireScripts
 @endsection

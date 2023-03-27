@@ -11,6 +11,6 @@ class Mother extends Model
     use HasFactory;
     use HasTranslations;
     public $translatable = ['name','job'];
-    protected $fillabel=['email','password','name','national_id','passport_id','phone','job','notionalitio_id','type_blood_id','religion_id','address','created_at','updated_at'];
+    protected $fillable=['email','password','name','national_id','passport_id','phone','job','notionalitio_id','type_blood_id','religion_id','address','created_at','updated_at'];
     protected $hidden=['created_at','updated_at'];
 }

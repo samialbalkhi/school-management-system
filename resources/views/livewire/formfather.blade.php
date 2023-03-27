@@ -1,5 +1,4 @@
 @if($currentStep != 1)
-
     <div style="display: none" class="row setup-content" id="step-1">
         @endif
         <div class="col-xs-12">
@@ -9,9 +8,9 @@
                     <div class="col">
                         <label for="title">{{trans('ParentsTranslate.Email')}}</label>
                         <input type="email" wire:model="Email"  class="form-control">
-                               @error('Email')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
+                        @error('Email')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="col">
                         <label for="title">{{trans('ParentsTranslate.Password')}}</label>
@@ -128,6 +127,7 @@
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
+
                 <button class="btn btn-success btn-sm nextBtn btn-lg pull-right" wire:click="firstStepSubmit"
                         type="button">{{trans('ParentsTranslate.Next')}}
                 </button>

@@ -22,7 +22,23 @@ return [
     'Religion_Father_id'=>'الديانة',
     'Address_Father'=>'العنوان',
     'Next'=>'التالي',
-    'Choose'=>'أختر من القائمة'
+    'Choose'=>'أختر من القائمة',
+
+    'Name_Mother'=>'أسم الأم بالعربية',
+    'Name_Mother_en'=>'أسم الأم بالأنكليزية',
+    'Job_Mother'=>'أسم الظيفة بالعربي',
+    'Job_Mother_en'=>'أسم الوظيفة بالأنكليزي',
+    'National_ID_Mother'=>'رقم الهوية',
+    'Passport_ID_Mother'=>'رقم جواز السفر',
+    'Phone_Mother'=>'رقم الهاتف',
+    'Nationality_Mother_id'=>'الجنسية',
+    'Blood_Type_Mother_id'=>'زمرة الدم',
+    'Religion_Mother_id'=>'الديانة',
+    'Address_Mother'=>'العنواان',
+    'Back'=>'السابق',
+    'Finish'=>'أنهاء',
+    'msseg'=>'هل أنت متأكد من حفظ بياناتك',
+
    
 
 
