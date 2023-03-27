@@ -1,12 +1,7 @@
 <div>
-<input type="text" placeholder="serach">
-<ul>
 
-    @foreach ($Nationalities as $items )
-    <li>
-        {{$items->name}}
-    </li>
-    @endforeach
-</ul>
+    <button wire:click="increment">+</button>
+    <button wire:click="decrement">-</button> 
+    <h1>{{ $count }}</h1>
    
 </div>

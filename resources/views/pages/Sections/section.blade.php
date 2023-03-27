@@ -99,7 +99,7 @@
                                                                     </tr>
 
 
-                                                                    <!--تعديل قسم جديد -->
+                                                                    <!--update section  -->
                                                                     <div class="modal fade"
                                                                         id="edit{{ $list->id }}" tabindex="-1"
                                                                         role="dialog"
@@ -205,20 +205,16 @@
                                                                                         <div class="col">
                                                                                             <div class="form-check">
 
-                                                                                                @if ($list->status === 1)
                                                                                                     <input
                                                                                                         type="checkbox"
-                                                                                                        checked
-                                                                                                        class="form-check-input"
+                                                                                                        data-status="{{$list->status}}"
+                                                                                                        {{$list->status==1 ? 'checked': null}}
+                                                                                                        class=" form-check-input"
                                                                                                         name="status"
                                                                                                         id="exampleCheck1">
-                                                                                                @else
-                                                                                                    <input
-                                                                                                        type="checkbox"
-                                                                                                        class="form-check-input"
-                                                                                                        name="status"
-                                                                                                        id="exampleCheck1">
-                                                                                                @endif
+                                                                                                
+                                                                                               
+                                                                                               
                                                                                                 <label
                                                                                                     class="form-check-label"
                                                                                                     for="exampleCheck1">{{ trans('SectionTranslation.status') }}</label>
@@ -394,10 +390,13 @@
     <!-- row closed -->
 @endsection
 @section('js')
+    
     @toastr_js
     @toastr_render
     <script>
         $(document).ready(function() {
+            let check=$('.cheackStatus').attr('data-status');
+            console.log(check);
             $('select[name="Grade_id"]').on('change', function() {
                 var Grade_id = $(this).val();
                 if (Grade_id) {

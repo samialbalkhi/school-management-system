@@ -15,6 +15,7 @@ class Section extends Model
     
     protected $fillable=['name','status','grade_id','classroom_id','created_at','updated_at'];
     protected $hidden=['created_at','updated_at'];
+   
 
     public function classrooms()
     {

@@ -22,6 +22,7 @@
 <script src="{{ URL::asset('assets/js/sweetalert2.js') }}"></script>
 <!-- toastr -->
 @yield('js')
+
 <script src="{{ URL::asset('assets/js/toastr.js') }}"></script>
 <!-- validation -->
 <script src="{{ URL::asset('assets/js/validation.js') }}"></script>

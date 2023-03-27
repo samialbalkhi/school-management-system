@@ -50,9 +50,7 @@ Route::group(
         Route::get('/calses/{id}',[SectionController::class, 'clasessection']);
     });
 
-
-
-Route::get('/test',function(){
-
-    return view('test');
-});
+    Route::get('test',function(){
+        return  view ('test') ;
+    });
+Route::view('addparents','livewire.showform')->name('addparents');

@@ -17,8 +17,6 @@ class Counter extends Component
             return view('livewire.counter', [
                 'Nationalities' => Religion::all(),
                   
-                
-            
             ]);
     
     }
@@ -29,7 +27,7 @@ class Counter extends Component
 
         $this->count ++ ;
     }
-    public function decrement (){
-        $this->count -- ;
-    }
+        public function decrement (){
+            $this->count -- ;
+        }
 }

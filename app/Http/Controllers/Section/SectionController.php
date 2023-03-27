@@ -66,6 +66,7 @@ class SectionController extends Controller
      */
     public function update(SectionRequest $request, string $id)
     {
+          
         $section=Section::find($id);
 
         $section->update([
@@ -73,7 +74,7 @@ class SectionController extends Controller
             'name' => ['ar' => $request->Name_Section_Ar, 'en' => $request->Name_Section_En],
             'grade_id'=>$request->Grade_id,
             'classroom_id'=>$request->Class_id,
-            'status'=>$request->status == 1 ?  : 2,
+            'status'=>$request->status =="on" ? 1 : 2,
            
         ]);
 
