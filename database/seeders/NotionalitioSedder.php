@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Notionalitio;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class NotionalitioSedder extends Seeder
@@ -13,6 +14,8 @@ class NotionalitioSedder extends Seeder
      */
     public function run(): void
     {
+       DB::table('notionalitios')->delete();
+
         $nationals = [
 
             [

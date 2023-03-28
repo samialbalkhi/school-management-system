@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Grade\GradeController;
 use App\Http\Controllers\ClassRoom\ClassController;
 use App\Http\Controllers\Section\SectionController;
+use App\Http\Controllers\Teachers\TeachersController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
@@ -54,3 +55,4 @@ Route::group(
         return  view ('test') ;
     });
 Route::view('addparents','livewire.showform')->name('addparents');
+Route::resource('/Teachers',TeachersController::class);

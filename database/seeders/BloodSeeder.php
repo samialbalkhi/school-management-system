@@ -3,8 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Type_blood;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class BloodSeeder extends Seeder
 {
@@ -13,6 +14,8 @@ class BloodSeeder extends Seeder
      */
     public function run(): void
     {
+       DB::table('type_bloods')->delete();
+
         $blood =['O-','O+','A+','A-','B+','B-','AB+','AB-'];
         foreach($blood as $items){
             Type_blood::create([

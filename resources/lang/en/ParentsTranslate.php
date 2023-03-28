@@ -37,5 +37,6 @@ return [
     'Back'=>'Back',
     'Finish'=>'Finish',
     'msseg'=>'Are you sure to save your data?',
+    'Attachments'=>'Attachments father',
 
 ];

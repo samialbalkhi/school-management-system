@@ -26,17 +26,19 @@ return new class extends Migration {
             $table->string('job');
             $table
                 ->foreignIdFor(Notionalitio::class)
-                ->references('Notionalitio_id')
+               
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
             $table
-                ->foreignIdFor(Type_blood::class)->references('Type_blood_id')
+                ->foreignIdFor(Type_blood::class)
+               
               
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
             $table
                 ->foreignIdFor(Religion::class)
-                ->references('Religion_id')
+                
+                
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
             $table->string('address');
