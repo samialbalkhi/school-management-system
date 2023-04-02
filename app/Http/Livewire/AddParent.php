@@ -48,9 +48,9 @@ class AddParent extends Component
         $Nationality_Mother_id,
         $Blood_Type_Mother_id,
         $Address_Mother,
-        $Religion_Mother_id,
+        $Religion_Mother_id ;
 
-        $futher=[];
+       
 
     public function updated($propertyName)
     {
@@ -169,6 +169,7 @@ class AddParent extends Component
         $this->show_table = false;
         $this->updateMode = true;
         $mother=Mother::find($id);
+     ///  array_push($this->father, ...$father);
         $this->Parent_id = $id;
         $this->Email = $mother->email;
         $this->Password = $mother->password;
@@ -183,7 +184,6 @@ class AddParent extends Component
         $this->Blood_Type_Mother_id = $mother->type_blood_id;
         $this->Address_Mother =$mother->address;
         $this->Religion_Mother_id =$mother->religion_id;
-        // dd($mother);
     }
     public function edit($id)
     {
@@ -209,24 +209,24 @@ class AddParent extends Component
         
 
     }
-    public function editname($id)
-    {
-        $mother=Mother::find($id);
-        $this->Parent_id = $id;
-        $this->Email = $mother->email;
-        $this->Password = $mother->password;
-        $this->Name_Mother = $mother->getTranslation('name', 'ar');
-        $this->Name_Mother_en = $mother->getTranslation('name', 'en');
-        $this->Job_Mother = $mother->getTranslation('job', 'ar');;
-        $this->Job_Mother_en = $mother->getTranslation('job', 'en');
-        $this->National_ID_Mother =$mother->National_ID_Mother;
-        $this->Passport_ID_Mother = $mother->Passport_ID_Mother;
-        $this->Phone_Mother = $mother->Phone_Mother;
-        $this->Nationality_Mother_id = $mother->Nationality_Mother_id;
-        $this->Blood_Type_Mother_id = $mother->Blood_Type_Mother_id;
-        $this->Address_Mother =$mother->Address_Mother;
-        $this->Religion_Mother_id =$mother->Religion_Mother_id;
-    }
+    // public function editname($id)
+    // {
+    //     $mother=Mother::find($id);
+    //     $this->Parent_id = $id;
+    //     $this->Email = $mother->email;
+    //     $this->Password = $mother->password;
+    //     $this->Name_Mother = $mother->getTranslation('name', 'ar');
+    //     $this->Name_Mother_en = $mother->getTranslation('name', 'en');
+    //     $this->Job_Mother = $mother->getTranslation('job', 'ar');;
+    //     $this->Job_Mother_en = $mother->getTranslation('job', 'en');
+    //     $this->National_ID_Mother =$mother->National_ID_Mother;
+    //     $this->Passport_ID_Mother = $mother->Passport_ID_Mother;
+    //     $this->Phone_Mother = $mother->Phone_Mother;
+    //     $this->Nationality_Mother_id = $mother->Nationality_Mother_id;
+    //     $this->Blood_Type_Mother_id = $mother->Blood_Type_Mother_id;
+    //     $this->Address_Mother =$mother->Address_Mother;
+    //     $this->Religion_Mother_id =$mother->Religion_Mother_id;
+    // }
 
     public function firstStepSubmit_edit()
     {
