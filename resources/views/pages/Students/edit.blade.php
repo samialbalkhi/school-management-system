@@ -19,7 +19,7 @@
         <div class="card card-statistics h-100">
             <div class="card-body">
 
-                @if ($errors->any())
+                {{-- @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
                             @foreach ($errors->all() as $error)
@@ -27,7 +27,7 @@
                             @endforeach
                         </ul>
                     </div>
-                @endif
+                @endif --}}
 
                 <form action="{{ route('Students.update', $Students->id) }}" method="post" autocomplete="off">
                     @method('PUT')
@@ -42,6 +42,9 @@
                                 <input value="{{ $Students->getTranslation('name', 'ar') }}" type="text"
                                     name="name_ar" class="form-control">
                                 <input type="hidden" name="id" value="{{ $Students->id }}">
+                                @error('name_ar')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
@@ -51,6 +54,9 @@
                                         class="text-danger">*</span></label>
                                 <input value="{{ $Students->getTranslation('name', 'en') }}" class="form-control"
                                     name="name_en" type="text">
+                                    @error('name_en')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                             </div>
                         </div>
                     </div>
@@ -61,6 +67,10 @@
                                 <label>{{ trans('StudentsTranslation.email') }} : </label>
                                 <input type="email" value="{{ $Students->email }}" name="email"
                                     class="form-control">
+
+                                    @error('email')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                             </div>
                         </div>
 
@@ -70,6 +80,10 @@
                                 <label>{{ trans('StudentsTranslation.password') }} :</label>
                                 <input value="{{ $Students->password }}" type="password" name="password"
                                     class="form-control">
+
+                                    @error('password')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                             </div>
                         </div>
 
@@ -85,6 +99,10 @@
                                             {{ $Gender->name }}</option>
                                     @endforeach
                                 </select>
+
+                                @error('gender_id')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
@@ -100,6 +118,10 @@
                                             {{ $nal->name }}</option>
                                     @endforeach
                                 </select>
+
+                                @error('nationalitie_id')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
@@ -114,6 +136,9 @@
                                             {{ $bg->name }}</option>
                                     @endforeach
                                 </select>
+                                @error('blood_id')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
@@ -122,6 +147,9 @@
                                 <label>{{ trans('StudentsTranslation.Date_of_Birth') }} :</label>
                                 <input class="form-control" type="text" value="{{ $Students->barth_day }}"
                                     id="datepicker-action" name="Date_Birth" data-date-format="yyyy-mm-dd">
+                                    @error('Date_Birth')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                             </div>
                         </div>
 
@@ -142,6 +170,10 @@
                                             {{ $Grade->name }}</option>
                                     @endforeach
                                 </select>
+
+                                @error('Grade_id')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
@@ -153,6 +185,10 @@
                                     <option value="{{ $Students->classroom_id }}">{{ $Students->classrooms->name }}
                                     </option>
                                 </select>
+
+                                @error('Classroom_id')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
@@ -163,6 +199,10 @@
                                     <option value="{{ $Students->section_id }}"> {{ $Students->sections->name }}
                                     </option>
                                 </select>
+
+                                @error('section_id')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
@@ -178,6 +218,10 @@
                                             {{ $parent->name }}</option>
                                     @endforeach
                                 </select>
+
+                                @error('parent_id')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
@@ -196,6 +240,10 @@
                                             {{ $year }}</option>
                                     @endfor
                                 </select>
+
+                                @error('academic_year')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div><br>

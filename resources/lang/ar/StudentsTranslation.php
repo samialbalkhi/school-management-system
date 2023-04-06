@@ -36,17 +36,12 @@ return [
     'submit'=>'بتأكيد',
     'promotestudents'=>'ترقية الطلاب',
     'oldschoolstage'=>'المرحلة الأبتدائية القديمة',
-    'Thenewprimarystage'=>'',
-    ''=>'',
-
-    ''=>'',
-
-    ''=>'',
-
-    ''=>'',
-
-    ''=>'',
-
-    ''=>'',
+    'Thenewprimarystage'=>'المرحلة الأبتدائية الجديدة',
+    'Studentpromotionmanagement'=>'أدارة ترقية الطلاب',
+    'Addedanewpromotion'=>'أضافة ترقية جديدة',
+    'Listofpromotions'=>'قائمة الترقيات',
+    'graduatingstudents'=>'الطلاب المتخرجين',
+    'Addanewgraduation'=>'أضافة تخرج جديد',
+    'Listofgraduatestudents'=>'قائمة الطلاب المتخرجين',
 
 ];

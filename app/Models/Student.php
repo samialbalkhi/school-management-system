@@ -3,16 +3,22 @@
 namespace App\Models;
 
 use App\Models\Image;
+use App\Models\Attendance;
+use App\Models\Fundaccount;
+use App\Models\Payment_student;
+use App\Models\Receipt_student;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Student extends Model
 {
     use HasFactory;
     use HasTranslations;
+    use SoftDeletes;
     public $translatable = ['name'];
-    public $guarded=[];
+    public $guarded = [];
 
     public function genders()
     {
@@ -28,19 +34,40 @@ class Student extends Model
     {
         return $this->belongsTo(Classroom::class, 'classroom_id');
     }
-    public function sections(){
-        return $this->belongsTo(Section::class,'section_id');
+    public function sections()
+    {
+        return $this->belongsTo(Section::class, 'section_id');
     }
 
-   public function images()
-   {
-    return $this->morphMany(Image::class,'imagetable');
-   }
-    public function notionalitios(){
-
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imagetable');
+    }
+    public function notionalitios()
+    {
         return $this->belongsTo(Notionalitio::class, 'notionalitio_id');
     }
-    public function fathers(){
-        return $this->belongsTo(Father::class,'father_id');
+    public function fathers()
+    {
+        return $this->belongsTo(Father::class, 'father_id');
+    }
+    public function student_accounts()
+    {
+        return $this->hasMany(Student_account::class, 'student_id');
+    }
+
+    public function Receipt_student()
+    {
+        return $this->hasMany(Receipt_student::class);
+    }
+
+    public function payemntStudent()
+    {
+        return $this->hasMany(Payment_student::class);
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class,'student_id');
     }
 }

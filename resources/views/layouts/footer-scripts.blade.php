@@ -4,8 +4,10 @@
 <script src="{{ URL::asset('assets/js/plugins-jquery.js') }}"></script>
 <!-- plugin_path -->
 
-<script type="text/javascript">var plugin_path ='{{asset('assets/js')}}/';</script>
-    
+<script type="text/javascript">
+    var plugin_path = '{{ asset('assets/js') }}/';
+</script>
+
 
 
 <!-- chart -->
@@ -59,10 +61,11 @@
                     dataType: "json",
                     success: function(data) {
                         $('select[name="Classroom_id"]').empty();
-                        $.each(data, function(key, value) {
-                            $('select[name="Classroom_id"]').append(
+                        $('select[name="Classroom_id"]').append(
                                 '<option selected disabled >{{ trans('StudentsTranslation.Choose') }}...</option>'
-                                );
+                            );
+                        $.each(data, function(key, value) {
+                          
                             $('select[name="Classroom_id"]').append(
                                 '<option value="' + key + '">' + value +
                                 '</option>');
@@ -114,10 +117,11 @@
                     dataType: "json",
                     success: function(data) {
                         $('select[name="Classroom_id_new"]').empty();
-                        $.each(data, function(key, value) {
-                            $('select[name="Classroom_id_new"]').append(
+                        $('select[name="Classroom_id_new"]').append(
                                 '<option selected disabled >{{ trans('StudentsTranslation.Choose') }}...</option>'
-                                );
+                            );
+                        $.each(data, function(key, value) {
+                          
                             $('select[name="Classroom_id_new"]').append(
                                 '<option value="' + key + '">' + value +
                                 '</option>');

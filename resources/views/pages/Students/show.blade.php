@@ -76,7 +76,7 @@
                             <div class="tab-pane fade" id="profile-02" role="tabpanel" aria-labelledby="profile-02-tab">
                                 <div class="card card-statistics">
                                     <div class="card-body">
-                                        <form method="post" action="{{ route('attachments') }}"
+                                        <form method="post" action="{{route('attachments_route') }}"
                                             enctype="multipart/form-data">
                                             {{ csrf_field() }}
                                             <div class="col-md-3">

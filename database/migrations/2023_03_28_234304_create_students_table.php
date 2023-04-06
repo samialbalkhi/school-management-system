@@ -6,6 +6,7 @@ use App\Models\Gender;
 use App\Models\Grade;
 use App\Models\Mother;
 use App\Models\Notionalitio;
+use App\Models\Payment_student;
 use App\Models\Section;
 use App\Models\Type_blood;
 use Illuminate\Support\Facades\Schema;
@@ -61,6 +62,9 @@ return new class extends Migration {
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
 
+           
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }

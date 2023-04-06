@@ -59,13 +59,13 @@ class StudentsRepository implements StudentsRepositoryInterface
                 'academic_year' => $request->academic_year,
             ]);
 
-            $students = $Student->name;
+            if ($request->hasfile('photos')) {
+                foreach ($request->file('photos') as $file) {
+                    $name = $file->getClientOriginalName();
+                    $file->storeAs('attachments/students/' . $Student->name, $file->getClientOriginalName(), 'upload_attachments');
 
-            if (!empty($request->photos)) {
-                for ($i = 0; $i < count($request->photos); $i++) {
-                    $path = $request->photos[$i]->store($students, 'public');
                     $Student->images()->create([
-                        'name' => $path,
+                        'name' => $name,
                     ]);
                 }
             }
@@ -129,44 +129,41 @@ class StudentsRepository implements StudentsRepositoryInterface
     public function show($id)
     {
         $Student = Student::findorFail($id);
-        // dd($Student->images);
+
         return view('pages.Students.show', compact('Student'));
     }
 
     public function attachments(Request $request)
     {
-        //name images
-        // $image=$request->photos[$i];
-        // $namefile=$image->getClientOriginalName();
+        foreach ($request->file('photos') as $file) {
+            $name = $file->getClientOriginalName();
 
-        $Student = Student::find($request->student_id);
-        if (!empty($request->photos)) {
-            for ($i = 0; $i < count($request->photos); $i++) {
-                $path = $request->photos[$i]->store($request->student_name,'public');
+            $file->storeAs('attachments/students/'. $request->student_name, $file->getClientOriginalName(), 'upload_attachments');
+            $Student = Student::find($request->student_id);
 
-                $Student->images()->create([
-                    'name' => $path,
-                ]);
-            }
-
-            toastr()->success(trans('messges.success'));
-            return redirect()->route('Students.show', $request->student_id);
+            $Student->images()->create([
+                'name' => $name,
+            ]);
         }
+
+        toastr()->success(trans('messges.success'));
+        return redirect()->route('Students.show', $request->student_id);
     }
 
-    public function Download_attachment($studentsname,$filename)
+    public function Download_attachment($studentsname, $filename)
     {
-        return Storage::download('storage/'.$studentsname.'/'.$filename);
-        // return response()->download(public_path('storage/'.$studentsname.'/'.$filename));
+        return response()->download(public_path('attachments/students/' . $studentsname . '/' . $filename));
     }
 
-    public function delete_attachment(Request $request,$id)
+    public function delete_attachment(Request $request, $id)
     {
-            Storage::delete('storage/'.$request->student_name.'/'.$request->filename);
+        Storage::disk('upload_attachments')->delete('attachments/students/' . $request->student_name . '/' . $request->filename);
 
-            Image::where('id',$id)->where('name',$request->filename)->delete();
+        Image::where('id', $id)
+            ->where('name', $request->filename)
+            ->delete();
 
-            toastr()->success(trans('messges.Delete'));
-            return redirect()->route('Students.show', $request->student_id);
+        toastr()->success(trans('messges.Delete'));
+        return redirect()->route('Students.show', $request->student_id);
     }
 }

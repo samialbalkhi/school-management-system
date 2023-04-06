@@ -36,4 +36,12 @@ return [
     'name' => 'name student',
     'submit'=> 'sure',
     'promotestudents'=> 'Promote students',
+    'oldschoolstage'=>'Old school stage',
+    'Thenewprimarystage'=>'The new primary stage',
+    'Studentpromotionmanagement'=> 'Student promotion management',
+    'graduatingstudents'=>'graduating students',
+    'Addanewgraduation'=>'Add a new graduation',
+    'Listofgraduatestudents'=>'List of graduate students',
+    'Addedanewpromotion'=>'Added a new promotion',
+    'Listofpromotions'=>'List of promotions',
 ];

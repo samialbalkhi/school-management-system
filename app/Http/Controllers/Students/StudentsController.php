@@ -33,7 +33,7 @@ class StudentsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StudentRequest $request)
     {
         return $this->student->stor($request);
     }
@@ -83,14 +83,13 @@ class StudentsController extends Controller
         return $this->student->attachments($request);
     }
 
-    public function Download_attachment($studentsname,$filename)
+    public function Download_attachment($studentsname, $filename)
     {
-        return $this->student->download_attachment($studentsname,$filename);
+        return $this->student->download_attachment($studentsname, $filename);
     }
 
-    public function Delete_attachment(Request $request,$id){
-
-        return $this->student->delete_attachment($request,$id);
+    public function Delete_attachment(Request $request, $id)
+    {
+        return $this->student->delete_attachment($request, $id);
     }
-   
 }

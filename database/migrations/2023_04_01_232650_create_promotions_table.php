@@ -23,7 +23,8 @@ return new class extends Migration {
             $table->unsignedBigInteger('to_grade');
             $table->unsignedBigInteger('to_Classroom');
             $table->unsignedBigInteger('to_section');
-
+            $table->integer('academic_year');
+            $table->integer('academic_year_new');
             $table->timestamps();
 
         });

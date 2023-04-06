@@ -19,7 +19,7 @@
         <div class="card card-statistics h-100">
             <div class="card-body">
 
-                @if ($errors->any())
+                {{-- @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
                             @foreach ($errors->all() as $error)
@@ -27,7 +27,7 @@
                             @endforeach
                         </ul>
                     </div>
-                @endif
+                @endif --}}
 
                 <form method="post" action="{{ route('Students.store') }}" autocomplete="off" enctype="multipart/form-data">
                     @csrf
@@ -39,6 +39,9 @@
                                 <label>{{ trans('StudentsTranslation.name_ar') }} : <span
                                         class="text-danger">*</span></label>
                                 <input type="text" name="name_ar" class="form-control">
+                                @error('name_ar')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
@@ -47,6 +50,9 @@
                                 <label>{{ trans('StudentsTranslation.name_en') }} : <span
                                         class="text-danger">*</span></label>
                                 <input class="form-control" name="name_en" type="text">
+                                @error('name_en')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -56,6 +62,9 @@
                             <div class="form-group">
                                 <label>{{ trans('StudentsTranslation.email') }} : </label>
                                 <input type="email" name="email" class="form-control">
+                                @error('email')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
@@ -64,6 +73,9 @@
                             <div class="form-group">
                                 <label>{{ trans('StudentsTranslation.password') }} :</label>
                                 <input type="password" name="password" class="form-control">
+                                @error('password')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
@@ -77,6 +89,9 @@
                                         <option value="{{ $Gender->id }}">{{ $Gender->name }}</option>
                                     @endforeach
                                 </select>
+                                @error('gender_id')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
@@ -90,6 +105,9 @@
                                         <option value="{{ $nal->id }}">{{ $nal->name }}</option>
                                     @endforeach
                                 </select>
+                                @error('nationalitie_id')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
@@ -102,6 +120,9 @@
                                         <option value="{{ $bg->id }}">{{ $bg->name }}</option>
                                     @endforeach
                                 </select>
+                                @error('blood_id')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
@@ -110,6 +131,9 @@
                                 <label>{{ trans('StudentsTranslation.Date_of_Birth') }} :</label>
                                 <input class="form-control" type="text" id="datepicker-action" name="Date_Birth"
                                     data-date-format="yyyy-mm-dd">
+                                    @error('Date_Birth')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                             </div>
                         </div>
 
@@ -128,6 +152,9 @@
                                         <option value="{{ $grads->id }}">{{ $grads->name }}</option>
                                     @endforeach
                                 </select>
+                                @error('Grade_id')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
@@ -159,6 +186,9 @@
                                     @foreach ($parents_Father as $parent)
                                         <option value="{{ $parent->id }}">{{ $parent->name }}</option>
                                     @endforeach
+                                    @error('parent_id')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </select>
                             </div>
                         </div>
@@ -175,6 +205,10 @@
                                     @for ($year = $current_year; $year <= $current_year + 1; $year++)
                                         <option value="{{ $year }}">{{ $year }}</option>
                                     @endfor
+
+                                    @error('academic_year')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </select>
                             </div>
                         </div>
