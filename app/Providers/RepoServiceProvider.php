@@ -3,8 +3,12 @@
 namespace App\Providers;
 
 
+use App\Repository\ExamRepository;
 use App\Repository\FeesRepository;
+use App\Repository\QuizzRepository;
 use App\Repository\ReceiptRepository;
+use App\Repository\SubjectRepository;
+use App\Repository\QuestionRepository;
 use App\Repository\StudentsRepository;
 use App\Repository\TeachersRepository;
 use App\Repository\GraduatedRepository;
@@ -12,12 +16,16 @@ use App\Repository\promotionRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Repository\AttendanceRepository;
 use App\Repository\FeesinvoicesRepository;
+use App\Repository\ExamRepositoryInterface;
 use App\Repository\FeesRepositoryInterface;
 use App\Repository\PaymentStudentRepository;
+use App\Repository\QuizzRepositoryInterface;
 use App\Repository\StudentPremiumRepository;
 use App\Repository\ReceiptRepositoryInterface;
+use App\Repository\SubjectRepositoryInterface;
 use App\Repository\StudentsRepositoryInterface;
 use App\Repository\TeachersRepositoryInterface;
+use App\Repository\QuestionRepositoryInterface;
 use App\Repository\GraduatedRepositoryInterface;
 use App\Repository\promotionRepositoryInterface;
 use App\Repository\AttendanceRepositoryInterface;
@@ -45,6 +53,13 @@ class RepoServiceProvider extends ServiceProvider
             $this->app->bind(PaymentStudentRepositoryInterface::class,PaymentStudentRepository::class);
             $this->app->bind(StudentPremiumRepositoryInterface::class,StudentPremiumRepository::class);
             $this->app->bind(AttendanceRepositoryInterface::class,AttendanceRepository::class);
+            $this->app->bind(SubjectRepositoryInterface::class,SubjectRepository::class);
+            $this->app->bind(QuizzRepositoryInterface::class,QuizzRepository::class);
+            $this->app->bind(QuestionRepositoryInterface::class,QuestionRepository::class);
+
+
+
+
 
 
 

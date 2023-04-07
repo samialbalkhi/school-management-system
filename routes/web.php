@@ -1,22 +1,27 @@
 <?php
 
-use App\Http\Controllers\Attendance\AttendanceController;
 use App\Models\Grade;
 use App\Models\Classroom;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Exam\ExamController;
 
 use App\Http\Controllers\Grade\GradeController;
 
+use App\Http\Controllers\Quizz\QuizzController;
 use App\Http\Controllers\Students\FeesController;
 use App\Http\Controllers\ClassRoom\ClassController;
 use App\Http\Controllers\Receipt\ReceiptController;
 use App\Http\Controllers\Section\SectionController;
+use App\Http\Controllers\Subject\SubjectController;
+use App\Http\Controllers\Question\QuestionController;
 use App\Http\Controllers\Students\StudentsController;
 use App\Http\Controllers\Teachers\TeachersController;
 use App\Http\Controllers\Students\GraduatedController;
 use App\Http\Controllers\students\PromotionController;
+use App\Http\Controllers\Attendance\AttendanceController;
 use App\Http\Controllers\Students\FeesinvoicesController;
+use App\Http\Controllers\Classonline\ClassonlineController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Controllers\PaymentStudent\PaymentStudentController;
 use App\Http\Controllers\StudentPremium\StudentpremiumController;
@@ -93,5 +98,16 @@ Route::resource('/paymentStudent',PaymentStudentController::class);
 //////////            StudentPremium         /////////////// 
 
 Route::resource('/StudentPremium',StudentpremiumController::class);
-
+/////////////////     Attendance             /////////////////////
 Route::resource('/Attendance',AttendanceController::class);
+////////  Subject         //////////////
+Route::resource('/Subject',SubjectController::class);
+///////       Exam       //////////
+Route::resource('/Quizzes',QuizzController::class);
+
+/////////         Question   ////////////
+Route::resource('/Question',QuestionController::class);
+
+/////////////  classonline     ///////////////
+
+Route::resource('/classonline',ClassonlineController::class);
