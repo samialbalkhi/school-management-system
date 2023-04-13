@@ -8,11 +8,12 @@ use App\Models\Fundaccount;
 use App\Models\Payment_student;
 use App\Models\Receipt_student;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Student extends Model
+class Student extends Authenticatable
 {
     use HasFactory;
     use HasTranslations;

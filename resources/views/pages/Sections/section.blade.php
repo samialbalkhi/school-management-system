@@ -205,16 +205,15 @@
                                                                                         <div class="col">
                                                                                             <div class="form-check">
 
-                                                                                                    <input
-                                                                                                        type="checkbox"
-                                                                                                        data-status="{{$list->status}}"
-                                                                                                        {{$list->status==1 ? 'checked': null}}
-                                                                                                        class=" form-check-input"
-                                                                                                        name="status"
-                                                                                                        id="exampleCheck1">
-                                                                                                
-                                                                                               
-                                                                                               
+                                                                                                <input type="checkbox"
+                                                                                                    data-status="{{ $list->status }}"
+                                                                                                    {{ $list->status == 1 ? 'checked' : null }}
+                                                                                                    class=" form-check-input"
+                                                                                                    name="status"
+                                                                                                    id="exampleCheck1">
+
+
+
                                                                                                 <label
                                                                                                     class="form-check-label"
                                                                                                     for="exampleCheck1">{{ trans('SectionTranslation.status') }}</label>
@@ -371,7 +370,14 @@
                                         @enderror
                                     </div>
 
-
+                                    <div class="col">
+                                        <label for="inputName" class="control-label">{{ trans('Sections_trans.Name_Teacher') }}</label>
+                                        <select multiple name="teacher_id[]" class="form-control" id="exampleFormControlSelect2">
+                                            @foreach($teachers as $teacher)
+                                                <option value="{{$teacher->id}}">{{$teacher->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary"
@@ -390,12 +396,12 @@
     <!-- row closed -->
 @endsection
 @section('js')
-    
+
     @toastr_js
     @toastr_render
     <script>
         $(document).ready(function() {
-            let check=$('.cheackStatus').attr('data-status');
+            let check = $('.cheackStatus').attr('data-status');
             console.log(check);
             $('select[name="Grade_id"]').on('change', function() {
                 var Grade_id = $(this).val();

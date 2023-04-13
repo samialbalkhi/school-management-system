@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Classonline;
 
+use Carbon\Carbon;
 use App\Models\Grade;
-use App\Models\Classonline;
 
+use App\Models\Classonline;
 use Illuminate\Http\Request;
 use App\Http\traits\MeetingsZoom;
 use App\Http\Controllers\Controller;
@@ -14,12 +15,16 @@ class ClassonlineController extends Controller
     /**
      * Display a listing of the resource.
      */
-    use MeetingsZoom ;
+    use MeetingsZoom;
+    const MEETING_TYPE_INSTANT = 1;
+    const MEETING_TYPE_SCHEDULE = 2;
+    const MEETING_TYPE_RECURRING = 3;
+    const MEETING_TYPE_FIXED_RECURRING_FIXED = 8;
     public function index()
     {
-        $online_classes=Classonline::all();
+        $online_classes = Classonline::all();
 
-        return view('pages.online_classes.index',compact('online_classes'));
+        return view('pages.online_classes.index', compact('online_classes'));
     }
 
     /**
@@ -27,8 +32,8 @@ class ClassonlineController extends Controller
      */
     public function create()
     {
-        $Grades=Grade::all();
-        return view('pages.online_classes.add',compact('Grades'));
+        $Grades = Grade::all();
+        return view('pages.online_classes.add', compact('Grades'));
     }
 
     /**
@@ -36,27 +41,26 @@ class ClassonlineController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-
-        $meeting = $this->createMeeting($request);
-            Classonline::create([
-            'Grade_id' => $request->Grade_id,
-            'Classroom_id' => $request->Classroom_id,
+        $date = date('d-m-Y H:i:s', strtotime($request->start_time));
+        $meetings = $this->createzoom($request->all());
+        dd($meetings['data']);
+        $getDate = Carbon::parse($date);
+        Classonline::create([
+            'grade_id' => $request->Grade_id,
+            'classroom_id' => $request->Classroom_id,
             'section_id' => $request->section_id,
-            'user_id' => auth()->user()->id,
-            'meeting_id' => $meeting->id,
-            'topic' => $request->topic,
-            'start_at' => $request->start_time,
-            'duration' => $meeting->duration,
-            'password' => $meeting->password,
-            'start_url' => $meeting->start_url,
-            'join_url' => $meeting->join_url,
+            'meeting_id' => $meetings['data']['id'],
+            'topic' => $meetings['data']['topic'],
+            'start_at' => $getDate,
+            'duration' => $meetings['data']['duration'],
+            'password' => $meetings['data']['password'],
+            'start_url' => $meetings['data']['start_url'],
+            'join_url' => $meetings['data']['join_url'],
+            'email' => 'samialbalkhi766@gmail.com',
         ]);
-        toastr()->success(trans('messages.success'));
+        // dd()
+        // toastr()->success(trans('messages.success'));
         return redirect()->route('classonline.index');
-        } catch (\Exception $e) {
-            return redirect()->back()->with(['error' => $e->getMessage()]);
-        }
     }
 
     /**
@@ -64,7 +68,8 @@ class ClassonlineController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $meeting = $this->get($id);
+        return view('meetings.index', compact('meeting'));
     }
 
     /**
@@ -72,15 +77,16 @@ class ClassonlineController extends Controller
      */
     public function edit(string $id)
     {
-        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update($meeting, Request $request, string $id)
     {
-        //
+        // $this->update($meeting->zoom_meeting_id, $request->all());
+
+        // return redirect()->route('meetings.index');
     }
 
     /**
@@ -88,6 +94,17 @@ class ClassonlineController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // dd($id);
+        //   dd( $this->delete($meeting->$id));
+
+        // return $this->sendSuccess('Meeting deleted successfully.');
+    }
+    public function deletes(Request $request, $id)
+    {
+        
+       $path= $this->delete($id);
+        dd($path);
+        Classonline::where('meeting_id', $id)->delete();
+        return redirect()->route('classonline.index');
     }
 }

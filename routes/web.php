@@ -4,15 +4,19 @@ use App\Models\Grade;
 use App\Models\Classroom;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+
 use App\Http\Controllers\Exam\ExamController;
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Grade\GradeController;
-
 use App\Http\Controllers\Quizz\QuizzController;
 use App\Http\Controllers\Students\FeesController;
 use App\Http\Controllers\ClassRoom\ClassController;
+use App\Http\Controllers\Library\LibraryController;
 use App\Http\Controllers\Receipt\ReceiptController;
 use App\Http\Controllers\Section\SectionController;
+use App\Http\Controllers\Setting\SettingController;
 use App\Http\Controllers\Subject\SubjectController;
 use App\Http\Controllers\Question\QuestionController;
 use App\Http\Controllers\Students\StudentsController;
@@ -36,13 +40,15 @@ use App\Http\Controllers\StudentPremium\StudentpremiumController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Auth::routes();
 
-Route::group(['middleware' => ['guest']], function () {
-    Route::get('/', function () {
-        return view('auth.login');
-    });
-});
+Route::get('/', [HomeController::class, 'index'])->name('selection');
+
+Route::get('/login/{type}', [LoginController::class, 'loginForm'])
+    ->middleware('guest')
+    ->name('login.show');
+Route::post('/login', [LoginController::class,'login'])->name('login');
+
+Route::get('/logout/{type}',[LoginController::class,'logout'])->name('logout');
 
 Route::group(
     [
@@ -50,7 +56,7 @@ Route::group(
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'auth'],
     ],
     function () {
-        Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+        Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
         Route::resource('/grades', GradeController::class);
         Route::resource('/classes', ClassController::class);
         Route::post('/delete_all', [ClassController::class, 'delete_all'])->name('delete_all');
@@ -93,21 +99,32 @@ Route::resource('/feesinvoices', FeesinvoicesController::class);
 Route::resource('/receipt', ReceiptController::class);
 
 /////////            PaymentStudent      ////////////////
-Route::resource('/paymentStudent',PaymentStudentController::class);
+Route::resource('/paymentStudent', PaymentStudentController::class);
 
-//////////            StudentPremium         /////////////// 
+//////////            StudentPremium         ///////////////
 
-Route::resource('/StudentPremium',StudentpremiumController::class);
+Route::resource('/StudentPremium', StudentpremiumController::class);
 /////////////////     Attendance             /////////////////////
-Route::resource('/Attendance',AttendanceController::class);
+Route::resource('/Attendance', AttendanceController::class);
 ////////  Subject         //////////////
-Route::resource('/Subject',SubjectController::class);
+Route::resource('/Subject', SubjectController::class);
 ///////       Exam       //////////
-Route::resource('/Quizzes',QuizzController::class);
+Route::resource('/Quizzes', QuizzController::class);
 
 /////////         Question   ////////////
-Route::resource('/Question',QuestionController::class);
+Route::resource('/Question', QuestionController::class);
 
 /////////////  classonline     ///////////////
 
-Route::resource('/classonline',ClassonlineController::class);
+Route::resource('/classonline', ClassonlineController::class);
+
+Route::post('/delete/{id}', [ClassonlineController::class, 'deletes'])->name('delete');
+
+/////////////    Library /////////////////
+Route::resource('/library', LibraryController::class);
+Route::get('/downloadAttachment/{filename}', [LibraryController::class, 'downloadAttachment'])->name('downloadAttachment');
+Route::get('/delete/{id}', [LibraryController::class, 'delete'])->name('delete_asd');
+
+////////   setting    ///////
+Route::get('/settings', [SettingController::class, 'index'])->name('settings');
+Route::post('/update', [SettingController::class, 'update'])->name('update');

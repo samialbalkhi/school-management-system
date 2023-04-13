@@ -42,8 +42,9 @@ class StudentsRepository implements StudentsRepositoryInterface
     }
     public function stor(Request $request)
     {
-        DB::beginTransaction();
-        try {
+        // dd($request);
+        // DB::beginTransaction();
+       
             $Student = Student::create([
                 'name' => ['en' => $request->name_en, 'ar' => $request->name_ar],
                 'email' => $request->email,
@@ -59,25 +60,22 @@ class StudentsRepository implements StudentsRepositoryInterface
                 'academic_year' => $request->academic_year,
             ]);
 
-            if ($request->hasfile('photos')) {
-                foreach ($request->file('photos') as $file) {
-                    $name = $file->getClientOriginalName();
-                    $file->storeAs('attachments/students/' . $Student->name, $file->getClientOriginalName(), 'upload_attachments');
+            // if ($request->hasfile('photos')) {
+            //     foreach ($request->file('photos') as $file) {
+            //         $name = $file->getClientOriginalName();
+            //         $file->storeAs('attachments/students/' . $Student->id, $file->getClientOriginalName(), 'upload_attachments');
 
-                    $Student->images()->create([
-                        'name' => $name,
-                    ]);
-                }
-            }
-            DB::commit();
+            //         $Student->images()->create([
+            //             'name' => $name,
+            //         ]);
+            //     }
+            // }
+            // DB::commit();
             toastr()->success(trans('messges.success'));
             return redirect()->route('Students.create');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()
-                ->back()
-                ->withErrors(['error' => $e->getMessage()]);
-        }
+      
+            // DB::rollBack();
+          
     }
     public function getstudents()
     {
