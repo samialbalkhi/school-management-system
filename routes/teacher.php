@@ -64,10 +64,10 @@ Route::group(
             Route::resource('/Quizzes', QuizzController::class);
             Route::resource('/Question', QuestionController::class);
             Route::resource('/classonline', OnlineZoomClassesController::class);
-
+            Route::get('/student_quizze/{id}', [QuizzController::class, 'student_quizze'])->name('student.quizze');
+            Route::post('/repeat_quizze/{id}', [QuizzController::class, 'repeat_quizze'])->name('repeat.quizze');
         });
         Route::get('/profile', [ProfileController::class, 'index'])->name('show.profile');
-        Route::post('/profileupdate/{id}', [ProfileController::class,'update'])->name('profile.update');
-
+        Route::post('/profileupdate/{id}', [ProfileController::class, 'update'])->name('profile.update');
     },
 );

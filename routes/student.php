@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Students\dashboard\ExamsController;
+use App\Http\Controllers\Students\dashboard\ProfileController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 Route::group(
@@ -17,8 +18,10 @@ Route::group(
     });
     Route::controller(ExamsController::class)->group(function () {
         
-          Route::get('/StudentExams','index')->name('index');
+          Route::resource('/StudentExams',ExamsController::class);
           Route::get('/StudentExams/{id}','show')->name('show');
-
+          
 });
+Route::resource('/Profile',ProfileController::class);
+
 });

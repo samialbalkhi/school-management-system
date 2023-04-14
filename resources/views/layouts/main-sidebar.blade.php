@@ -15,7 +15,7 @@
             @endif
 
             @if (auth('parent')->check())
-                {{-- @include('layouts.main-sidebar.parent-main-sidebar') --}}
+                @include('layouts.main-sidebar.parent-main-sidebar')
             @endif
              @if (auth('web')->check())
                 @include('layouts.main-sidebar.admin-main-sidebar')

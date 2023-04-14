@@ -89,7 +89,9 @@ Route::delete('/delete_promotion', [PromotionController::class, 'delete_promotio
 Route::resource('/graduated', GraduatedController::class);
 
 //////////////////////  Fees          //////////////////
-Route::resource('/fees', FeesController::class);
+Route::resource('/fees',FeesController::class);
+
+
 
 ///////  Feesinvoices    /////////
 
